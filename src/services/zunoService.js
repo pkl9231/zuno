@@ -1,4 +1,4 @@
-const axios = require("axios");
+const customAxios = require("../axios/axios.config");
 const HTTP_CODE = require("../constants/constant");
 
 const zunoService = async (req, res) => {
@@ -12,13 +12,12 @@ const zunoService = async (req, res) => {
   }
 };
 
-const zunoServiceGetQuote = async (req, res) => {
-  console.log("Boday Data", req.body);
+const zunoServiceQuicQuote = async (req, res) => {
   try {
-    // const response = await axios.post(req.body);
-    res.status(HTTP_CODE.HTTP_RESPONSE_200).send(req.body);
+    const result = await customAxios.post("/motor/quote", req.body);
+    return res.status(200).json(result.data).end();
   } catch (error) {
-    console.error(error);
+    console.log("getting error", error);
     res.send(error);
   }
 };
@@ -45,7 +44,7 @@ const zunoServiceRating = async (req, res) => {
 
 module.exports = {
   zunoService,
-  zunoServiceGetQuote,
+  zunoServiceQuicQuote,
   zunoServicePostQuote,
   zunoServiceRating,
 };
