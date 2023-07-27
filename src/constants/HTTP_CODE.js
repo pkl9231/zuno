@@ -1,0 +1,6 @@
+module.exports = {
+  HTTP_RESPONSE_200: "200",
+  HTTP_RESPONSE_400: "400",
+  HTTP_RESPONSE_401: "401",
+  HTTP_RESPONSE_504: "504",
+};

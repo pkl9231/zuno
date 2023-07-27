@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const service = require("../services/zunoService");
+const controller = require("../controller/zunoController");
+// const helpers = require("../helpers/utils")
 
 router
-  .get("/", service.zunoService)
-  .post("/quick-quote/zuno", service.zunoServiceQuicQuote)
-  .post("/fullQuote/zuno", service.zunoServicePostQuote)
-  .post("/issue-policy/zuno", service.zunoServiceRating)
-  .post("/online-payment-request/zuno", service.zunoServiceRating)
-  .post("/pdf-generation/zuno", service.zunoServiceRating);
+  .post("/auth/zuno", controller.zunoAuth)
+  .post("/quick-quote/zuno", controller.zunoServiceQuickQuote)
+  .post("/full-quote/zuno", controller.zunoServiceFullQuote)
+  // .post("/issue-policy/zuno", service.zunoServiceRating)
+  // .post("/online-payment-request/zuno", service.zunoServiceRating)
+  // .post("/pdf-generation/zuno", service.zunoServiceRating);
 
 module.exports = router;

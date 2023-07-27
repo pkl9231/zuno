@@ -1,16 +1,14 @@
 const axios = require("axios");
-
-const token = "eyJraWQiOiI1aDVBUDAwbitvcFkwQ3BITTNJVk5PczVPRVJsZFVOUlwvblwvcDJZSVUzc3c9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI3bXQ2OXE5YmR0c2w3ZmlmNHFhMml2b2g4YiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiTW90b3JfSW5zdXJhbmNlX3MyZ243ZHp2NG1cL2FjY2Vzc0FsbCIsImF1dGhfdGltZSI6MTY5MDA4MDcxMSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV90aWN2NEFhNGQiLCJleHAiOjE2OTAwODQzMTEsImlhdCI6MTY5MDA4MDcxMSwidmVyc2lvbiI6MiwianRpIjoiODVkYzg4NDktYTQ0Ni00NjNjLTljNDQtODgyYjRiYjRhZDE2IiwiY2xpZW50X2lkIjoiN210NjlxOWJkdHNsN2ZpZjRxYTJpdm9oOGIifQ.gNjCwcylCpUQk7hzNk0qYagwVF_NEWbfc2lRm1Peq6xFJUSvEu1vpUmtf-pFB9hAimFgzBRtOVcwfsYPhBCLusel-_B5pL13rsKmM40cdngX7kApf6q3db_rAhOts25b9083yosSDbJTe0DzgFlVHNx1QMoyfYo3QQ3kQCx9P5dU1Eh6j4KQJQ69QXmPaUqd1mI1X1hb6dU7wmB4lO-RjzH14wlGQvnc0-Sg2CAkyj6sZguhglDuXQJ_cS0Mf3ks16y1lKKJ_oH3M-z7P6AttTNwVmfd7FzrAQQL9fbu20WNU8jntXAZL6tCuSqzQch4_fupGiGnuLZ9l5UrM-tkug";
-const apiKey = "oUADtJXNU34tSfs8raALy47ZDWZxhZD518ArYRLa"
-
+const credentials = require("../confidential/credentials");
 
 const API = axios.create({
-  baseURL: "https://devapi.edelweissinsurance.com",
+  baseURL: credentials.baseUrl,
   headers: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`,
-    "x-api-key": apiKey,
+    "x-api-key": credentials.apiKey,
   },
 });
 
-module.exports = API;
+module.exports = {
+  API,
+};

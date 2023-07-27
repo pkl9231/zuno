@@ -1,34 +1,43 @@
 const customAxios = require("../axios/axios.config");
-const HTTP_CODE = require("../constants/constant");
+const HTTP_CODE = require("../constants/HTTP_CODE");
+const utils = require("../helpers/utils")
 
-const zunoService = async (req, res) => {
+const proceedZunoAuth = async (credential, url) => {
   try {
-    // const response = await axios.get("https://dummyjson.com/users");
-    // res.status(HTTP_CODE.HTTP_RESPONSE_200).send(response.data);
-    res.status(HTTP_CODE.HTTP_RESPONSE_200).send("response from APi");
+    const result = await customAxios.API.post(url, "", credential);
+    return utils.wrapper(HTTP_CODE.HTTP_RESPONSE_200, result.data);
   } catch (error) {
     console.error(error);
-    res.send(error);
+    throw  {
+      message : error?.response?.data?.message,
+      statusCode : error?.response?.status
+    }
   }
 };
 
-const zunoServiceQuicQuote = async (req, res) => {
+const proceesZunoServiceQuickQuote = async (credential, url, bodyData) => {
   try {
-    const result = await customAxios.post("/motor/quote", req.body);
-    return res.status(200).json(result.data).end();
+    const result = await customAxios.API.post(url, bodyData, credential);
+    return result.data;
   } catch (error) {
-    console.log("getting error", error);
-    res.send(error);
+    console.log("getting error in service", error?.response);
+    throw  {
+      message : error?.response?.data?.message,
+      statusCode : error?.response?.status
+    }
   }
 };
 
-const zunoServicePostQuote = async (req, res) => {
-  console.log("Boday Data", req.body);
+const proceedZunoServiceFullQuote = async (credential, url, bodyData) => {
   try {
-    res.status(HTTP_CODE.HTTP_RESPONSE_200).send("response from APi");
+    const result = await customAxios.API.post(url, bodyData, credential);
+    return result.data;
   } catch (error) {
-    console.error(error);
-    res.send(error);
+    console.log("getting error", error?.response);
+    throw  {
+      message : error?.response?.data?.message,
+      statusCode : error?.response?.status
+    }
   }
 };
 
@@ -43,8 +52,8 @@ const zunoServiceRating = async (req, res) => {
 };
 
 module.exports = {
-  zunoService,
-  zunoServiceQuicQuote,
-  zunoServicePostQuote,
+  proceedZunoAuth,
+  proceesZunoServiceQuickQuote,
+  proceedZunoServiceFullQuote,
   zunoServiceRating,
 };
