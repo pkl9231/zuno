@@ -41,13 +41,16 @@ const proceedZunoServiceFullQuote = async (credential, url, bodyData) => {
   }
 };
 
-const zunoServiceRating = async (req, res) => {
-  console.log("Boday Data", req.body);
+const proceedZunoKYCcustomer = async (credential, url, bodyData) => {
   try {
-    res.status(HTTP_CODE.HTTP_RESPONSE_200).send("response from APi");
+    const result = await customAxios.API.post(url, bodyData, credential);
+    return result.data;
   } catch (error) {
-    console.error(error);
-    res.send(error);
+    console.log("getting error", error?.response);
+    throw  {
+      message : error?.response?.data?.message,
+      statusCode : error?.response?.status
+    }
   }
 };
 
@@ -55,5 +58,5 @@ module.exports = {
   proceedZunoAuth,
   proceesZunoServiceQuickQuote,
   proceedZunoServiceFullQuote,
-  zunoServiceRating,
+  proceedZunoKYCcustomer,
 };

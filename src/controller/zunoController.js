@@ -70,16 +70,28 @@ const zunoServiceFullQuote = async (req, res) => {
     return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
   } catch (error) {
     console.error("getting error", error);
-    return res.status(HTTP_CODE.HTTP_RESPONSE_401).json(error).end();
+    return res.status(error.statusCode).json(error).end();
   }
 };
 
-const zunoServiceRating = async (req, res) => {
+const zunoKYcustomer = async (req, res) => {
+  
+  const credential = {
+    headers: {
+      Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
+    },
+  };
   try {
-    res.status(HTTP_CODE.HTTP_RESPONSE_200).send("response from APi");
+    const result = await zunoService.proceedZunoKYCcustomer(
+      credential,
+      API_URL.KYC_CUSTOMER_URL,
+      req.body
+      // kycData
+    );
+    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
   } catch (error) {
-    console.error(error);
-    return res.status(HTTP_CODE.HTTP_RESPONSE_401).json(error).end();
+    console.error("getting error", error);
+    return res.status(error.statusCode).json(error).end();
   }
 };
 
@@ -87,5 +99,5 @@ module.exports = {
   zunoAuth,
   zunoServiceQuickQuote,
   zunoServiceFullQuote,
-  zunoServiceRating,
+  zunoKYcustomer,
 };

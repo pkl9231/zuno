@@ -5,4 +5,5 @@ module.exports = {
   ISSUE_POLICY_URL: "/issue-policy",
   ONLINE_PAYMENT_URL: "/online-payment-request",
   PDF_GENERATION_URL: "/pdf-generation",
+  KYC_CUSTOMER_URL: "/signzy/extraction-of-documents",
 };
