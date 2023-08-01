@@ -6,4 +6,5 @@ module.exports = {
   ONLINE_PAYMENT_URL: "/online-payment-request",
   PDF_GENERATION_URL: "/pdf-generation",
   KYC_CUSTOMER_URL: "/signzy/extraction-of-documents",
+  KYC_ISSUE_POLICY_URL: "/motor/issue-policy",
 };

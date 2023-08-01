@@ -1,8 +1,19 @@
+const fs = require("fs");
 const HTTP_CODE = require("../constants/HTTP_CODE");
 const API_URL = require("../constants/apiUrl");
 const credentials = require("../confidential/credentials");
 const zunoService = require("../services/zunoService");
 const validation = require("../validation/inputParams.validation");
+const path = "src/confidential/token.json";
+
+
+// fs.readFile(path, "utf8", (err, jsonString) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log(jsonString);
+// });
 
 const zunoAuth = async (req, res) => {
   const credential = {
@@ -20,6 +31,7 @@ const zunoAuth = async (req, res) => {
       API_URL.AUTH_TOKEN_URL
     );
     res.cookie("AUTH-TOKEN", result?.data?.access_token);
+    await writeData(result?.data?.access_token);
     return res
       .status(result.statusCode)
       .send(result)
@@ -31,7 +43,6 @@ const zunoAuth = async (req, res) => {
 };
 
 const zunoServiceQuickQuote = async (req, res) => {
-
   const errorMessage = validation.inputParamsValidaton(req.body);
   if (errorMessage) {
     return res.status(HTTP_CODE.HTTP_RESPONSE_400).json(errorMessage).end();
@@ -41,7 +52,8 @@ const zunoServiceQuickQuote = async (req, res) => {
       Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
     },
   };
-
+  
+  
   try {
     const result = await zunoService.proceesZunoServiceQuickQuote(
       credential,
@@ -95,9 +107,39 @@ const zunoKYcustomer = async (req, res) => {
   }
 };
 
+const zunoIssuePolicy = async (req, res) => {
+  const credential = {
+    headers: {
+      Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
+    },
+  };
+  try {
+    const result = await zunoService.proceedZunoIssuePolicy(
+      credential,
+      API_URL.KYC_ISSUE_POLICY_URL,
+      req.body
+    );
+    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
+  } catch (error) {
+    console.error("getting error", error);
+    return res.status(error.statusCode).json(error).end();
+  }
+};
+
 module.exports = {
   zunoAuth,
   zunoServiceQuickQuote,
   zunoServiceFullQuote,
   zunoKYcustomer,
+  zunoIssuePolicy,
+};
+
+const writeData = async (data) => {
+  fs.writeFile(path, JSON.stringify(data), (error) => {
+    if (error) {
+      console.log("An error has occurred ", error);
+      return;
+    }
+    console.log("Data written successfully to the file");
+  });
 };

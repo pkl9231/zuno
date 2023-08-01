@@ -8,7 +8,7 @@ router
   .post("/quick-quote/zuno", controller.zunoServiceQuickQuote)
   .post("/full-quote/zuno", controller.zunoServiceFullQuote)
   .post("/kyc/zuno", controller.zunoKYcustomer)
-  // .post("/issue-policy/zuno", service.zunoServiceRating)
+  .post("/issue-policy/zuno", controller.zunoIssuePolicy)
   // .post("/online-payment-request/zuno", service.zunoServiceRating)
   // .post("/pdf-generation/zuno", service.zunoServiceRating);
 
