@@ -21,7 +21,6 @@ const zunoAuth = async (req, res) => {
       credential,
       API_URL.FOUR_WHEELER.AUTH_TOKEN_URL
     );
-    console.log("result?.data?.access_token", result?.data?.access_token);
     await writeData(result?.data?.access_token);
     return res.status(result.statusCode).send(result).end();
   } catch (error) {
