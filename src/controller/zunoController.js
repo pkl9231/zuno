@@ -19,7 +19,7 @@ const zunoAuth = async (req, res) => {
   try {
     const result = await zunoService.proceedZunoAuth(
       credential,
-      API_URL.AUTH_TOKEN_URL
+      API_URL.FOUR_WHEELER.AUTH_TOKEN_URL
     );
     console.log("result?.data?.access_token", result?.data?.access_token);
     await writeData(result?.data?.access_token);
@@ -37,7 +37,7 @@ const zunoServiceQuickQuote = async (req, res) => {
   }
   try {
     const result = await zunoService.proceesZunoServiceQuickQuote(
-      API_URL.QUICK_QUOTE_URL,
+      API_URL.FOUR_WHEELER.QUICK_QUOTE_URL,
       req.body
     );
     return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
@@ -50,7 +50,7 @@ const zunoServiceQuickQuote = async (req, res) => {
 const zunoServiceFullQuote = async (req, res) => {
   try {
     const result = await zunoService.proceedZunoServiceFullQuote(
-      API_URL.FULL_QUOTE_URL,
+      API_URL.FOUR_WHEELER.FULL_QUOTE_URL,
       req.body
     );
     return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
@@ -63,7 +63,7 @@ const zunoServiceFullQuote = async (req, res) => {
 const zunoKYCcustomer = async (req, res) => {
   try {
     const result = await zunoService.proceedZunoKYCcustomer(
-      API_URL.KYC_CUSTOMER_URL,
+      API_URL.FOUR_WHEELER.KYC_CUSTOMER_URL,
       req.body
     );
     return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
@@ -76,7 +76,20 @@ const zunoKYCcustomer = async (req, res) => {
 const zunoIssuePolicy = async (req, res) => {
   try {
     const result = await zunoService.proceedZunoIssuePolicy(
-      API_URL.KYC_ISSUE_POLICY_URL,
+      API_URL.FOUR_WHEELER.KYC_ISSUE_POLICY_URL,
+      req.body
+    );
+    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
+  } catch (error) {
+    console.error("getting error", error);
+    return res.status(error.statusCode).json(error).end();
+  }
+};
+
+const zunoOnlinePayment = async (req, res) => {
+  try {
+    const result = await zunoService.proceedZunoIssuePolicy(
+      API_URL.FOUR_WHEELER.ONLINE_PAYMENT_URL,
       req.body
     );
     return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
@@ -92,6 +105,7 @@ module.exports = {
   zunoServiceFullQuote,
   zunoKYCcustomer,
   zunoIssuePolicy,
+  zunoOnlinePayment,
 };
 
 const writeData = async (data) => {

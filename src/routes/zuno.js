@@ -9,7 +9,7 @@ router
   .post("/full-quote/zuno", controller.zunoServiceFullQuote)
   .post("/kyc/zuno", controller.zunoKYCcustomer)
   .post("/issue-policy/zuno", controller.zunoIssuePolicy)
-  // .post("/online-payment-request/zuno", service.zunoServiceRating)
+  .post("/online-payment-request/zuno", controller.zunoOnlinePayment)
   // .post("/pdf-generation/zuno", service.zunoServiceRating);
 
 module.exports = router;
