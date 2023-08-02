@@ -99,6 +99,19 @@ const zunoOnlinePayment = async (req, res) => {
   }
 };
 
+const zunoPdfDownload = async (req, res) => {
+  try {
+    const result = await zunoService.proceedZunoPdfDownload(
+      API_URL.FOUR_WHEELER.PDF_GENERATION_URL,
+      req.body
+    );
+    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
+  } catch (error) {
+    console.error("getting error", error);
+    return res.status(error.statusCode).json(error).end();
+  }
+};
+
 module.exports = {
   zunoAuth,
   zunoServiceQuickQuote,
@@ -106,6 +119,7 @@ module.exports = {
   zunoKYCcustomer,
   zunoIssuePolicy,
   zunoOnlinePayment,
+  zunoPdfDownload,
 };
 
 const writeData = async (data) => {

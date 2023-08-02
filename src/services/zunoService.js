@@ -81,11 +81,25 @@ const proceedZunoOnlinePayment = async (url, bodyData) => {
   }
 };
 
+const proceedZunoPdfDownload = async (url, bodyData) => {
+  try {
+    const result = await customAxios.API.post(url, bodyData);
+    return result.data;
+  } catch (error) {
+    console.log("getting error", error);
+    throw {
+      message: error?.response?.data?.message,
+      statusCode: error?.response?.status,
+    };
+  }
+};
+
 module.exports = {
   proceedZunoAuth,
   proceesZunoServiceQuickQuote,
   proceedZunoServiceFullQuote,
   proceedZunoKYCcustomer,
   proceedZunoIssuePolicy,
-  proceedZunoOnlinePayment
+  proceedZunoOnlinePayment,
+  proceedZunoPdfDownload,
 };

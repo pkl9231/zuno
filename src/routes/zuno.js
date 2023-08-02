@@ -10,6 +10,6 @@ router
   .post("/kyc/zuno", controller.zunoKYCcustomer)
   .post("/issue-policy/zuno", controller.zunoIssuePolicy)
   .post("/online-payment-request/zuno", controller.zunoOnlinePayment)
-  // .post("/pdf-generation/zuno", service.zunoServiceRating);
+  .post("/pdf-generation/zuno", controller.zunoPdfDownload);
 
 module.exports = router;
