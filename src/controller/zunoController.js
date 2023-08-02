@@ -6,15 +6,6 @@ const zunoService = require("../services/zunoService");
 const validation = require("../validation/inputParams.validation");
 const path = "src/confidential/token.json";
 
-
-// fs.readFile(path, "utf8", (err, jsonString) => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-//   console.log(jsonString);
-// });
-
 const zunoAuth = async (req, res) => {
   const credential = {
     headers: {
@@ -30,12 +21,9 @@ const zunoAuth = async (req, res) => {
       credential,
       API_URL.AUTH_TOKEN_URL
     );
-    res.cookie("AUTH-TOKEN", result?.data?.access_token);
+    console.log("result?.data?.access_token", result?.data?.access_token);
     await writeData(result?.data?.access_token);
-    return res
-      .status(result.statusCode)
-      .send(result)
-      .end();
+    return res.status(result.statusCode).send(result).end();
   } catch (error) {
     console.error(error);
     return res.status(error.statusCode).json(error).end();
@@ -47,16 +35,8 @@ const zunoServiceQuickQuote = async (req, res) => {
   if (errorMessage) {
     return res.status(HTTP_CODE.HTTP_RESPONSE_400).json(errorMessage).end();
   }
-  const credential = {
-    headers: {
-      Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
-    },
-  };
-  
-  
   try {
     const result = await zunoService.proceesZunoServiceQuickQuote(
-      credential,
       API_URL.QUICK_QUOTE_URL,
       req.body
     );
@@ -68,14 +48,8 @@ const zunoServiceQuickQuote = async (req, res) => {
 };
 
 const zunoServiceFullQuote = async (req, res) => {
-  const credential = {
-    headers: {
-      Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
-    },
-  };
   try {
     const result = await zunoService.proceedZunoServiceFullQuote(
-      credential,
       API_URL.FULL_QUOTE_URL,
       req.body
     );
@@ -86,19 +60,11 @@ const zunoServiceFullQuote = async (req, res) => {
   }
 };
 
-const zunoKYcustomer = async (req, res) => {
-  
-  const credential = {
-    headers: {
-      Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
-    },
-  };
+const zunoKYCcustomer = async (req, res) => {
   try {
     const result = await zunoService.proceedZunoKYCcustomer(
-      credential,
       API_URL.KYC_CUSTOMER_URL,
       req.body
-      // kycData
     );
     return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
   } catch (error) {
@@ -108,14 +74,8 @@ const zunoKYcustomer = async (req, res) => {
 };
 
 const zunoIssuePolicy = async (req, res) => {
-  const credential = {
-    headers: {
-      Authorization: `Bearer ${req.cookies["AUTH-TOKEN"]}`,
-    },
-  };
   try {
     const result = await zunoService.proceedZunoIssuePolicy(
-      credential,
       API_URL.KYC_ISSUE_POLICY_URL,
       req.body
     );
@@ -130,7 +90,7 @@ module.exports = {
   zunoAuth,
   zunoServiceQuickQuote,
   zunoServiceFullQuote,
-  zunoKYcustomer,
+  zunoKYCcustomer,
   zunoIssuePolicy,
 };
 

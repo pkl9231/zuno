@@ -2,9 +2,10 @@ const customAxios = require("../axios/axios.config");
 const HTTP_CODE = require("../constants/HTTP_CODE");
 const utils = require("../helpers/utils");
 
-const proceedZunoAuth = async (req, credential, url) => {
+const proceedZunoAuth = async (credential, url) => {
   try {
-    const result = await customAxios.API(req).post(url, "", credential);
+    const result = await customAxios.API.post(url, "", credential);
+    console.log("result" ,result);
     return utils.wrapper(HTTP_CODE.HTTP_RESPONSE_200, result.data);
   } catch (error) {
     console.error(error);
@@ -15,9 +16,9 @@ const proceedZunoAuth = async (req, credential, url) => {
   }
 };
 
-const proceesZunoServiceQuickQuote = async (credential, url, bodyData) => {
+const proceesZunoServiceQuickQuote = async (url, bodyData) => {
   try {
-    const result = await customAxios.API.post(url, bodyData, credential);
+    const result = await customAxios.API.post(url, bodyData);
     return result.data;
   } catch (error) {
     console.log("getting error in service", error?.response);
@@ -28,9 +29,9 @@ const proceesZunoServiceQuickQuote = async (credential, url, bodyData) => {
   }
 };
 
-const proceedZunoServiceFullQuote = async (credential, url, bodyData) => {
+const proceedZunoServiceFullQuote = async (url, bodyData) => {
   try {
-    const result = await customAxios.API.post(url, bodyData, credential);
+    const result = await customAxios.API.post(url, bodyData);
     return result.data;
   } catch (error) {
     console.log("getting error", error?.response);
@@ -41,12 +42,12 @@ const proceedZunoServiceFullQuote = async (credential, url, bodyData) => {
   }
 };
 
-const proceedZunoKYCcustomer = async (credential, url, bodyData) => {
+const proceedZunoKYCcustomer = async (url, bodyData) => {
   try {
-    const result = await customAxios.API().post(url, bodyData, credential);
+    const result = await customAxios.API.post(url, bodyData);
     return result.data;
   } catch (error) {
-    console.log("getting error", error?.response);
+    console.log("getting error", error);
     throw {
       message: error?.response?.data?.message,
       statusCode: error?.response?.status,
@@ -54,12 +55,12 @@ const proceedZunoKYCcustomer = async (credential, url, bodyData) => {
   }
 };
 
-const proceedZunoIssuePolicy = async (credential, url, bodyData) => {
+const proceedZunoIssuePolicy = async (url, bodyData) => {
   try {
-    const result = await customAxios.API.post(url, bodyData, credential);
+    const result = await customAxios.API.post(url, bodyData);
     return result.data;
   } catch (error) {
-    console.log("getting error", error?.response);
+    console.log("getting error", error);
     throw {
       message: error?.response?.data?.message,
       statusCode: error?.response?.status,
