@@ -5,8 +5,7 @@ const utils = require("../helpers/utils");
 const proceedZunoAuth = async (credential, url) => {
   try {
     const result = await customAxios.API.post(url, "", credential);
-    console.log("result" ,result);
-    return utils.wrapper(HTTP_CODE.HTTP_RESPONSE_200, result.data);
+    return  utils.wrapper(result.data);
   } catch (error) {
     console.error(error);
     throw {

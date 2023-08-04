@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const serverless = require('serverless-http');
 // const path = require('path');
 // const cookieParser = require('cookie-parser');
 const logger = require('morgan');

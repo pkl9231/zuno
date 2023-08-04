@@ -6,7 +6,7 @@ const zunoService = require("../services/zunoService");
 const validation = require("../validation/inputParams.validation");
 const path = "src/confidential/token.json";
 
-const zunoAuth = async (req, res) => {
+const zunoAuth = async () => {
   const credential = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21,11 +21,12 @@ const zunoAuth = async (req, res) => {
       credential,
       API_URL.FOUR_WHEELER.AUTH_TOKEN_URL
     );
-    await writeData(result?.data?.access_token);
-    return res.status(result.statusCode).send(result).end();
+    console.log("getting token.....", result);
+    // await writeData(result?.access_token);
+    return result;
   } catch (error) {
     console.error(error);
-    return res.status(error.statusCode).json(error).end();
+    return error;
   }
 };
 
@@ -118,7 +119,7 @@ module.exports = {
   zunoKYCcustomer,
   zunoIssuePolicy,
   zunoOnlinePayment,
-  zunoPdfDownload,
+  zunoPdfDownload
 };
 
 const writeData = async (data) => {
