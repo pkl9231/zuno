@@ -47,29 +47,33 @@ const zunoServiceQuickQuote = async (data) => {
   }
 };
 
-const zunoServiceFullQuote = async (req, res) => {
+const zunoServiceFullQuote = async (data) => {
+  // const errorMessage = validation.inputParamsValidaton(data);
+  // if (errorMessage) {
+  //   return errorMessage;
+  // }
   try {
     const result = await zunoService.proceedZunoServiceFullQuote(
       API_URL.FOUR_WHEELER.FULL_QUOTE_URL,
-      req.body
+      data
     );
-    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
+    return result;
   } catch (error) {
-    console.error("getting error", error);
-    return res.status(error.statusCode).json(error).end();
+    console.error("getting error in controller", error);
+    throw error;
   }
 };
 
-const zunoKYCcustomer = async (req, res) => {
+const zunoKYCcustomer = async (data) => {
   try {
     const result = await zunoService.proceedZunoKYCcustomer(
       API_URL.FOUR_WHEELER.KYC_CUSTOMER_URL,
-      req.body
+      data,
     );
-    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
+    return result;
   } catch (error) {
-    console.error("getting error", error);
-    return res.status(error.statusCode).json(error).end();
+    console.error("getting error in controller", error);
+    throw error;
   }
 };
 

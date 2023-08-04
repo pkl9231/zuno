@@ -32,10 +32,11 @@ const proceesZunoServiceQuickQuote = async (url, bodyData) => {
 const proceedZunoServiceFullQuote = async (url, bodyData) => {
   try {
     const result = await customAxios.API.post(url, bodyData);
-    return result.data;
+    console.log("getting data", result);
+    return utils.wrapper(result.data);
   } catch (error) {
     console.log("getting error", error?.response);
-    throw {
+    return {
       message: error?.response?.data?.message,
       statusCode: error?.response?.status,
     };
@@ -45,10 +46,11 @@ const proceedZunoServiceFullQuote = async (url, bodyData) => {
 const proceedZunoKYCcustomer = async (url, bodyData) => {
   try {
     const result = await customAxios.API.post(url, bodyData);
-    return result.data;
+    console.log("getting data", result);
+    return utils.wrapper(result.data);
   } catch (error) {
     console.log("getting error", error);
-    throw {
+    return {
       message: error?.response?.data?.message,
       statusCode: error?.response?.status,
     };
