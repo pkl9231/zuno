@@ -18,10 +18,11 @@ const proceedZunoAuth = async (credential, url) => {
 const proceesZunoServiceQuickQuote = async (url, bodyData) => {
   try {
     const result = await customAxios.API.post(url, bodyData);
-    return result.data;
+    console.log("getting data", result);
+    return utils.wrapper(result.data);
   } catch (error) {
-    console.log("getting error in service", error?.response);
-    throw {
+    console.error("getting error in service", error?.response);
+    return {
       message: error?.response?.data?.message,
       statusCode: error?.response?.status,
     };

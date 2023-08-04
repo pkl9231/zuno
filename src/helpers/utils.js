@@ -1,16 +1,9 @@
-const authorization = (req, res, next) => {
-  const sessionToken = req.cookies["AUTH-TOKEN"];
-  console.log("token", sessionToken);
-  return next();
-};
-
-const wrapper = (statusCode, data) => {
+const wrapper = (data) => {
   return {
     body: { data },
   };
 };
 
 module.exports = {
-  authorization,
   wrapper,
 };

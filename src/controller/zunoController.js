@@ -30,20 +30,20 @@ const zunoAuth = async () => {
   }
 };
 
-const zunoServiceQuickQuote = async (req, res) => {
-  const errorMessage = validation.inputParamsValidaton(req.body);
+const zunoServiceQuickQuote = async (data) => {
+  const errorMessage = validation.inputParamsValidaton(data);
   if (errorMessage) {
-    return res.status(HTTP_CODE.HTTP_RESPONSE_400).json(errorMessage).end();
+    return errorMessage;
   }
   try {
     const result = await zunoService.proceesZunoServiceQuickQuote(
       API_URL.FOUR_WHEELER.QUICK_QUOTE_URL,
-      req.body
+      data
     );
-    return res.status(HTTP_CODE.HTTP_RESPONSE_200).json(result).end();
+    return result;
   } catch (error) {
     console.error("getting error in controller", error);
-    return res.status(error.statusCode).json(error).end();
+    throw error;
   }
 };
 
